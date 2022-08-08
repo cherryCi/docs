@@ -1,37 +1,43 @@
-## Welcome to GitHub Pages
+## leetcode 23 合并多个升序链表
 
-You can use the [editor on GitHub](https://github.com/cherryCi/docs/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+题目链接：https://leetcode.cn/problems/merge-k-sorted-lists/
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### 题目内容
+给你一个链表数组，每个链表都已经按升序排列。
 
-```markdown
-Syntax highlighted code block
+请你将所有链表合并到一个升序链表中，返回合并后的链表
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```
+解题思路
+ 1. 采用分治思想，每次都处理两个列表成一个列表
+ 2. 然后再将两个列表进行再一次合并就可以找到最终解答
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+### 核心代码
+```
+    //合并两个链表，谁小就谁在前面，然后指针往下一节点移动
+    private ListNode mergeTwoList(ListNode node1, ListNode node2) {
+        if (node1 == null) return node2;
+        if (node2 == null) return node1;
+        if (node1.val >= node2.val) {
+            node2 = mergeTwoList(node1, node2.next);
+            return node2;
+        }
+        node1 = mergeTwoList(node1.next, node2);
+        return node1;
+    }
+    
+    //分治思想，将数组分成2个列表2个列表一块处理
+    public ListNode merge(ListNode[] lists, int left, int right) {
+        if (left == right) return lists[left];
+        int middle = left + (right - left) / 2;
+        ListNode l1 = merge(lists, left, middle);
+        ListNode l2 = merge(lists, middle+1, right);
+        return mergeTwoList(l1, l2);
+    }
+    
+```
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/cherryCi/docs/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
