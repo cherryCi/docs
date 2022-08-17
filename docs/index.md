@@ -18,7 +18,7 @@
 ## 5.设计
 
 ## 6. leetcode
-  ### 23 合并多个升序链表
+  ### 23 合并多个升序链表 (https://github.com/cherryCi/docs/blob/main/docs/leetcode-23.md)
 				
         
         
